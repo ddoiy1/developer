@@ -1,17 +1,12 @@
 import discord, asyncio
+from discord.ext import commands
 import os
 
 client = discord.Client()
 
 @client.event
-async def on_ready(): 
-  async def message(games):
-    await client.wait_until_ready()
-
-    while not client.is_closed():
-        for g in games:
-            await client.change_presence(status = discord.Status.online, activity = discord.Game(~도움말을 입력해보세요!))
-            await asyncio.sleep(10)
+async def on_ready():
+  await client.changd_presence(activity=discord.Game(name='~도움말을 입력해보세요!'))
 
 @client.event
 async def on_message(message):
