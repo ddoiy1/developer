@@ -4,8 +4,14 @@ import os
 client = discord.Client()
 
 @client.event
-async def on_ready():
-    print('{0.user} 봇을 연결했습니다'.format(client))
+async def on_ready(): 
+  async def message(games):
+    await client.wait_until_ready()
+
+    while not client.is_closed():
+        for g in games:
+            await client.change_presence(status = discord.Status.online, activity = discord.Game(~도움말을 입력해보세요!))
+            await asyncio.sleep(10)
 
 @client.event
 async def on_message(message):
@@ -15,18 +21,8 @@ async def on_message(message):
         for i in range(1, len(vote)):
                 choose = await message.channel.send("```" + vote[i] + "```")
                 await choose.add_reaction('👍')
-                
-@client.event
-async def on_ready(): 
-  async def message(games):
-    await client.wait_until_ready()
-
-    while not client.is_closed():
-        for g in games:
-            await client.change_presence(status = discord.Status.online, activity = discord.Game(~도움말을 입력해보세요!))
-            await asyncio.sleep(10)
-            
-            
+                         
+           
 @client.event
 async def on_message(message):
     if message.author == client.user:
